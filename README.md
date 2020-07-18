@@ -14,5 +14,23 @@ python setup.py install
 ```python
 from webdock.webdock import Webdock
 
-wd = Webdock('your-api-key-here')
+wd = Webdock('your-api-token-here')
+```
+
+## Ping
+```python
+wd.ping()
+```
+
+## List servers
+```python
+servers = wd.servers()
+```
+
+## Get a server
+```python
+try:
+    server = wd.get_server('server-slug')
+except Exception as e:
+    print(str(e))
 ```
