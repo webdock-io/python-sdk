@@ -18,7 +18,7 @@ class Webdock:
 
     # Send API call's response
     def send_response(self, res, json=True):
-        if res.status_code in [200, 201]:
+        if res.status_code in [200, 201, 418]:
             if json:
                 return {
                     'status': res.status_code,
@@ -39,10 +39,7 @@ class Webdock:
             res = requests.patch('{}/{}'.format(self.baseurl, endpoint), data=json.dumps(data), headers=self.headers)
         elif requestType == 'DELETE':
             res = requests.delete('{}/{}'.format(self.baseurl, endpoint), headers=self.headers)
-            if res.status_code == 200:
-                return True
-            else:
-                return False
+            return self.send_response(res, False)
         return self.send_response(res)
     
     # Ping the API
