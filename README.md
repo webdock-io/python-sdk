@@ -10,24 +10,24 @@ or clone this repo and run:
 ```python
 python setup.py install
 ```
-# Usage
+## Usage
 ```python
 from webdock.webdock import Webdock
 
 wd = Webdock('your-api-token-here')
 ```
 
-## Ping
+### Ping
 ```python
 wd.ping()
 ```
 
-## List servers
+### List servers
 ```python
 servers = wd.servers()
 ```
 
-## Get a server
+### Get a server
 ```python
 try:
     server = wd.get_server('server-slug')
