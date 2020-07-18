@@ -1,7 +1,6 @@
 import requests, json
 
 class Webdock:
-
     def __init__(self, apiToken):
         self.baseurl = 'https://api.webdock.io'
         self.headers = {
@@ -10,7 +9,11 @@ class Webdock:
         }
         self.endpoints = {
             'ping': 'ping',
-            'servers': 'servers'
+            'servers': 'servers',
+            'locations': 'locations',
+            'profiles': 'profiles',
+            'images': 'images',
+            'pubkeys': 'account/publicKeys'
         }
 
     # Send API call's response
@@ -33,6 +36,10 @@ class Webdock:
             res = requests.patch('{}/{}'.format(self.baseurl, endpoint), data=json.dumps(data), headers=self.headers)
         elif requestType == 'DELETE':
             res = requests.delete('{}/{}'.format(self.baseurl, endpoint), headers=self.headers)
+            if res.status_code == 200:
+                return True
+            else:
+                return False
         return self.send_response(res)
     
     # Ping the API
@@ -46,3 +53,37 @@ class Webdock:
     # Get a server by slug
     def get_server(self, slug):
         return self.make_request('{}/{}'.format(self.endpoints.get('servers'), slug))
+
+    # Patch a server
+    def patch_server(self, slug, status):
+        return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='PATCH', data={'status': status})
+    
+    # Get server locations
+    def get_locations(self):
+        return self.make_request(self.endpoints.get('locations'))
+    
+    # Get profiles
+    def get_profiles(self):
+        return self.make_request(self.endpoints.get('profiles'))
+    
+    # Get images
+    def get_images(self):
+        return self.make_request(self.endpoints.get('images'))
+    
+    # Public keys
+    def get_pubkeys(self):
+        return self.make_request(self.endpoints.get('pubkeys'))
+    
+    # Create a public key
+    def create_key(self, **kwargs):
+        if not kwargs.get('name') or not kwargs.get('publicKey'):
+            raise Exception('Both public key name and public key string are required.')
+        data = {
+            'name': kwargs.get('name'),
+            'publicKey': kwargs.get('publicKey')
+        }
+        return self.make_request(self.endpoints.get('pubkeys'), requestType='POST', data=data)
+    
+    # Delete a public key
+    def delete_key(self, keyId):
+        return self.make_request('{}/{}'.format(self.endpoints.get('pubkeys'), keyId), 'DELETE')
