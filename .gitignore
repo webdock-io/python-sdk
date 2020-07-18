@@ -1,0 +1,5 @@
+*.pyc
+webdock.egg-info
+dist
+build
+*.swp
