@@ -20,7 +20,10 @@ class Webdock:
     def send_response(self, res, json=True):
         if res.status_code in [200, 201]:
             if json:
-                return res.json()
+                return {
+                    'status': res.status_code,
+                    'data': res.json()
+                }
             else:
                 return True
         else:
@@ -75,15 +78,28 @@ class Webdock:
         return self.make_request(self.endpoints.get('pubkeys'))
     
     # Create a public key
-    def create_key(self, **kwargs):
-        if not kwargs.get('name') or not kwargs.get('publicKey'):
-            raise Exception('Both public key name and public key string are required.')
+    def create_key(self, name, publicKey):
         data = {
-            'name': kwargs.get('name'),
-            'publicKey': kwargs.get('publicKey')
+            'name': name,
+            'publicKey': publicKey
         }
         return self.make_request(self.endpoints.get('pubkeys'), requestType='POST', data=data)
     
     # Delete a public key
     def delete_key(self, keyId):
         return self.make_request('{}/{}'.format(self.endpoints.get('pubkeys'), keyId), 'DELETE')
+    
+    # Get shell users of a server
+    def get_shellusers(self, serverSlug):
+        return self.make_request('{}/{}/shellUsers'.format(self.endpoints.get('servers'), serverSlug))
+    
+    # Create a shell user
+    def create_shelluser(self, serverSlug, username, password, group='sudo', shell='/bin/bash', publicKeys=[]):
+        data = {
+            'username': username,
+            'password': password,
+            'group': group,
+            'shell': shell,
+            'publicKeys': publicKeys
+        }
+        return self.make_request('{}/{}/shellUsers'.format(self.endpoints.get('servers'), serverSlug), requestType='POST', data=data)
