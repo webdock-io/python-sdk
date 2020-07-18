@@ -32,5 +32,5 @@ servers = wd.servers()
 try:
     server = wd.get_server('server-slug')
 except Exception as e:
-    print(str(e))
+    print('An error occured: {}'.format(str(e)))
 ```
