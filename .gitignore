@@ -3,3 +3,4 @@ webdock.egg-info
 dist
 build
 *.swp
+.DS_Store
