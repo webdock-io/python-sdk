@@ -14,7 +14,8 @@ class Webdock:
             'profiles': 'profiles',
             'images': 'images',
             'pubkeys': 'account/publicKeys',
-            'scripts': 'scripts'
+            'scripts': 'scripts',
+            'hooks': 'hooks'
         }
 
     # Send API call's response
@@ -152,9 +153,40 @@ class Webdock:
         return self.make_request('{}/{}/snapshots'.format(self.endpoints.get('servers'), serverSlug))
     
     # Create a snapshot of a server
-    def create_snapshots(self, serverSlug):
-        return self.make_request('{}/{}/snapshots'.format(self.endpoints.get('servers'), serverSlug), requestType='POST')
+    def create_snapshots(self, serverSlug, name):
+        data = {
+            'name': name
+        }
+        return self.make_request('{}/{}/snapshots'.format(self.endpoints.get('servers'), serverSlug), requestType='POST', data=data)
     
-    # Get server snapshot by ID
+    # Get a server snapshot by ID
     def get_snapshot(self, serverSlug, snapshotId):
         return self.make_request('{}/{}/snapshots/{}'.format(self.endpoints.get('servers'), serverSlug, snapshotId))
+    
+    # Delete a server snapshot by ID
+    def delete_snapshot(self, serverSlug, snapshotId):
+        return self.make_request('{}/{}/snapshots/{}'.format(self.endpoints.get('servers'), serverSlug, snapshotId), requestType='DELETE')
+    
+    # Restore a server snapshot by ID
+    def restore_snapshot(self, serverSlug, snapshotId):
+        return self.make_request('{}/{}/snapshots/{}/restore'.format(self.endpoints.get('servers'), serverSlug, snapshotId), requestType='DELETE')
+    
+    # Get hooks list
+    def get_hooks(self):
+        return self.make_request(self.endpoints.get('hooks'))
+    
+    # Get a hook by ID
+    def get_hook(self, hookId):
+        return self.make_request('{}/{}'.format(self.endpoints.get('hooks'), hookId))
+    
+    # Delete a hook by ID
+    def delete_hook(self, hookId):
+        return self.make_request('{}/{}'.format(self.endpoints.get('hooks'), hookId), requestType='DELETE')
+    
+    # Create a hook
+    def create_hook(self, hookType, hookValue):
+        data = {
+            'type': hookType,
+            'value': hookValue
+        }
+        return self.make_request(self.endpoints.get('hooks'), data=data)
