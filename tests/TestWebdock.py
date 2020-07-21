@@ -45,6 +45,11 @@ class TestWebdock(unittest.TestCase):
     def test_bad_shell_users(self):
         with self.assertRaises(Exception):
             wd.get_shellusers(bad_serverslug)
+        
+    # Test get scripts
+    def test_get_scripts(self):
+        res = wd.get_scripts()
+        self.assertEqual(200, res.get('status'))
 
 
 if __name__ == '__main__':

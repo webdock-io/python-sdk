@@ -77,9 +77,9 @@ class Webdock:
         return self.make_request(self.endpoints.get('pubkeys'))
     
     # Create a public key
-    def create_key(self, name, publicKey):
+    def create_key(self, keyName, publicKey):
         data = {
-            'name': name,
+            'name': keyName,
             'publicKey': publicKey
         }
         return self.make_request(self.endpoints.get('pubkeys'), requestType='POST', data=data)
@@ -108,7 +108,7 @@ class Webdock:
         return self.make_request('{}/{}/shellUsers/{}'.format(self.endpoints.get('servers'), serverSlug, shellUserId), requestType='DELETE')
     
     # Update a shell user
-    def create_shelluser(self, serverSlug, shellUserId, username, password, group='sudo', shell='/bin/bash', publicKeys=[]):
+    def update_shelluser(self, serverSlug, shellUserId, username, password, group='sudo', shell='/bin/bash', publicKeys=[]):
         data = {
             'username': username,
             'password': password,
