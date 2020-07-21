@@ -13,7 +13,8 @@ class Webdock:
             'locations': 'locations',
             'profiles': 'profiles',
             'images': 'images',
-            'pubkeys': 'account/publicKeys'
+            'pubkeys': 'account/publicKeys',
+            'scripts': 'scripts'
         }
 
     # Send API call's response
@@ -100,3 +101,60 @@ class Webdock:
             'publicKeys': publicKeys
         }
         return self.make_request('{}/{}/shellUsers'.format(self.endpoints.get('servers'), serverSlug), requestType='POST', data=data)
+    
+    # Delete a shell user
+    def delete_shelluser(self, serverSlug, shellUserId):
+        return self.make_request('{}/{}/shellUsers/{}'.format(self.endpoints.get('servers'), serverSlug, shellUserId), requestType='DELETE')
+    
+    # Update a shell user
+    def create_shelluser(self, serverSlug, shellUserId, username, password, group='sudo', shell='/bin/bash', publicKeys=[]):
+        data = {
+            'username': username,
+            'password': password,
+            'group': group,
+            'shell': shell,
+            'publicKeys': publicKeys
+        }
+        return self.make_request('{}/{}/shellUsers.{}'.format(self.endpoints.get('servers'), serverSlug, shellUserId), requestType='PATCH', data=data)
+    
+    # Get public scripts
+    def get_pubscripts(self):
+        return self.make_request(self.endpoints.get('scripts'))
+    
+    # Get server scripts
+    def get_serverscripts(self, serverSlug):
+        return self.make_request('{}/{}/scripts'.format(self.endpoints.get('servers'), serverSlug))
+    
+    # Create a server script
+    def create_serverscript(self, serverSlug, scriptId, path, makeScriptExecutable=False, executeImmediately=False):
+        data = {
+            'scriptId': scriptId,
+            'path': path,
+            'makeScriptExecutable': makeScriptExecutable,
+            'executeImmediately': executeImmediately
+        }
+        return self.make_request('{}/{}/scripts'.format(self.endpoints.get('servers'), serverSlug), requestType='POST', data=data)
+    
+    # Get a server script by ID
+    def get_serverscript(self, serverSlug, scriptId):
+        return self.make_request('{}/{}/scripts/{}'.format(self.endpoints.get('servers'), serverSlug, scriptId))
+    
+    # Delete a server script by ID
+    def delete_serverscript(self, serverSlug, scriptId):
+        return self.make_request('{}/{}/scripts/{}'.format(self.endpoints.get('servers'), serverSlug, scriptId), requestType='DELETE')
+    
+    # Execute a server script
+    def execute_serverscript(self, serverSlug, scriptId):
+        return self.make_request('{}/{}/scripts/{}/execute'.format(self.endpoints.get('servers'), serverSlug, scriptId), requestType='POST')
+    
+    # Get snapshots of a server
+    def get_snapshots(self, serverSlug):
+        return self.make_request('{}/{}/snapshots'.format(self.endpoints.get('servers'), serverSlug))
+    
+    # Create a snapshot of a server
+    def create_snapshots(self, serverSlug):
+        return self.make_request('{}/{}/snapshots'.format(self.endpoints.get('servers'), serverSlug), requestType='POST')
+    
+    # Get server snapshot by ID
+    def get_snapshot(self, serverSlug, snapshotId):
+        return self.make_request('{}/{}/snapshots/{}'.format(self.endpoints.get('servers'), serverSlug, snapshotId))
