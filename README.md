@@ -30,6 +30,7 @@ servers = wd.servers()
 ### Provision a Server
 Data dictionary should contain these params:
 | Param | Type | Details |
+| ------- | --- | -- |
 | name | string | A descriptive name for your server |
 | slug | string | A unique slug for your server |
 | locationId | string | ID of a location obtained from locations endpoint |
