@@ -14,7 +14,7 @@ class TestWebdock(unittest.TestCase):
     # Test ping
     def test_ping(self):
         res = wd.ping()
-        self.assertEqual(418, res.get('status'))
+        self.assertEqual(200, res.get('status'))
     
     # Test server listing
     def test_servers(self):
