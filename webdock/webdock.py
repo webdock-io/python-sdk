@@ -5,7 +5,8 @@ class Webdock:
         self.baseurl = 'https://api.webdock.io'
         self.headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer {}'.format(apiToken)
+            'Authorization': 'Bearer {}'.format(apiToken),
+            'X-Client': 'webdock-python-sdk/v1.0.0'
         }
         self.endpoints = {
             'ping': 'ping',
