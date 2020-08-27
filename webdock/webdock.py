@@ -1,8 +1,9 @@
 import requests, json
+from .exceptions import ValidationException
 
 class Webdock:
     def __init__(self, apiToken):
-        self.baseurl = 'https://api.webdock.io'
+        self.baseurl = 'https://api.webdock.io/v1'
         self.headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer {}'.format(apiToken),
@@ -52,6 +53,13 @@ class Webdock:
     # Get servers
     def servers(self):
         return self.make_request(self.endpoints.get('servers'))
+    
+    # Provision a new server
+    def provision_server(self, data):
+        for field in ['name', 'slug', 'locationId', 'profileSlug', 'imageSlug']:
+            if field not in data:
+                raise ValidationException('Required fields are missing.')
+        return self.make_request(self.endpoints.get('servers'), requestType='POST', data=data)
     
     # Get a server by slug
     def get_server(self, slug):
