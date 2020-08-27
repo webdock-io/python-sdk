@@ -19,6 +19,7 @@ class Webdock:
             'scripts': 'scripts',
             'hooks': 'hooks'
         }
+        self.params = {}
 
     # Send API call's response
     def send_response(self, res, json=True):
@@ -36,7 +37,7 @@ class Webdock:
     # Make an API request
     def make_request(self, endpoint, requestType='GET', data=None):
         if requestType == 'GET':
-            res = requests.get('{}/{}'.format(self.baseurl, endpoint), headers=self.headers)
+            res = requests.get('{}/{}'.format(self.baseurl, endpoint), params=self.params, headers=self.headers)
         elif requestType == 'POST':
             res = requests.post('{}/{}'.format(self.baseurl, endpoint), data=json.dumps(data), headers=self.headers)
         elif requestType == 'PATCH':
@@ -74,7 +75,8 @@ class Webdock:
         return self.make_request(self.endpoints.get('locations'))
     
     # Get profiles
-    def get_profiles(self):
+    def get_profiles(self, location):
+        self.params['locationId'] = location
         return self.make_request(self.endpoints.get('profiles'))
     
     # Get images

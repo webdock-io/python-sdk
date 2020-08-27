@@ -27,6 +27,20 @@ wd.ping()
 servers = wd.servers()
 ```
 
+### Provision a Server
+Data dictionary should contain these params:
+| Param | Type | Details |
+| name | string | A descriptive name for your server |
+| slug | string | A unique slug for your server |
+| locationId | string | ID of a location obtained from locations endpoint |
+| profileSlug | string | ID of a profile obtained from profiles endpoint |
+| imageSlug | string | ID of an image obtained from images endpoint |
+| snapshotId (Optional) | string | ID of a snapshot obtained from snapshots endpoint |
+
+```python
+server = wd.provision_server(data)
+```
+
 ### Get a server
 ```python
 try:
