@@ -1,5 +1,5 @@
 import requests, json
-from .exceptions import ValidationException
+from .exceptions import ValidationException, WebdockException
 
 class Webdock:
     def __init__(self, apiToken):
@@ -31,7 +31,7 @@ class Webdock:
             else:
                 return True
         else:
-            raise Exception('{} Error: {}'.format(res.status_code, res.reason))
+            raise WebdockException('{} Error: {}'.format(res.status_code, res.reason))
 
     # Make an API request
     def make_request(self, endpoint, requestType='GET', data=None):
