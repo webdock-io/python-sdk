@@ -67,8 +67,12 @@ class Webdock:
         return self.make_request('{}/{}'.format(self.endpoints.get('servers'), slug))
 
     # Patch a server
-    def patch_server(self, slug, status):
-        return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='PATCH', data={'status': status})
+    def patch_server(self, slug, data):
+        required = ['name', 'description', 'nextActionDate', 'notes']
+        for required_field in required:
+            if required_field not in data:
+                raise ValidationException(f'Required field {required_field} is missing.')
+        return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='PATCH', data=data)
     
     # Delete a server
     def delete_server(self, slug):
