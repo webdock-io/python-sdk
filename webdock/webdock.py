@@ -20,17 +20,21 @@ class Webdock:
             'hooks': 'hooks'
         }
         self.params = {}
+        self.expectsRaw = False
 
     # Send API call's response
     def send_response(self, res, json=True):
         if res.status_code in [200, 201, 202, 418]:
-            if json:
-                return {
-                    'status': res.status_code,
-                    'data': res.json()
-                }
+            if self.expectsRaw:
+                return res.content
             else:
-                return True
+                if json:
+                    return {
+                        'status': res.status_code,
+                        'data': res.json()
+                    }
+                else:
+                    return True
         else:
             raise WebdockException('{} Error: {}'.format(res.status_code, res.reason))
 
@@ -79,7 +83,7 @@ class Webdock:
         return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='DELETE')
 
     # Server action
-    def server_action(self, slug, action, data={}):
+    def server_action(self, serverSlug, action, data={}):
         supported_actions = ['start', 'stop', 'reboot', 'suspend', 'reinstall', 'snapshot', 'restore', 'resize/dryrun', 'resize']
         if action not in supported_actions:
             raise ValidationException(f'The action {action} is not supported.')
@@ -96,7 +100,7 @@ class Webdock:
             if not data.get('snapshotId'):
                 raise ValidationException('The field snapshotId is required.')
         
-        return self.make_request(endpoint='{}/{}/actions/{}'.format(self.endpoints.get('servers'), slug, action), requestType='POST')
+        return self.make_request(endpoint='{}/{}/actions/{}'.format(self.endpoints.get('servers'), serverSlug, action), requestType='POST')
 
     # Get server locations
     def get_locations(self):
@@ -187,6 +191,11 @@ class Webdock:
     def execute_serverscript(self, serverSlug, scriptId):
         return self.make_request('{}/{}/scripts/{}/execute'.format(self.endpoints.get('servers'), serverSlug, scriptId), requestType='POST')
     
+    # Fetch a file from the server
+    def fetch_file(self, serverSlug, filePath):
+        self.expectsRaw = True
+        return self.make_request('{}/{}/fetchFile'.format(self.endpoints.get('servers'), serverSlug), data={'filePath': filePath}, requestType='POST')
+
     # Get snapshots of a server
     def get_snapshots(self, serverSlug):
         return self.make_request('{}/{}/snapshots'.format(self.endpoints.get('servers'), serverSlug))
