@@ -70,6 +70,10 @@ class Webdock:
     def patch_server(self, slug, status):
         return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='PATCH', data={'status': status})
     
+    # Delete a server
+    def delete_server(self, slug):
+        return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='DELETE')
+
     # Get server locations
     def get_locations(self):
         return self.make_request(self.endpoints.get('locations'))
