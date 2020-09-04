@@ -78,6 +78,26 @@ class Webdock:
     def delete_server(self, slug):
         return self.make_request(endpoint='{}/{}'.format(self.endpoints.get('servers'), slug), requestType='DELETE')
 
+    # Server action
+    def server_action(self, slug, action, data={}):
+        supported_actions = ['start', 'stop', 'reboot', 'suspend', 'reinstall', 'snapshot', 'restore', 'resize/dryrun', 'resize']
+        if action not in supported_actions:
+            raise ValidationException(f'The action {action} is not supported.')
+        
+        if action == 'reinstall':
+            if not data.get('snapshotId'):
+                raise ValidationException('The field snapshotId is required')
+        
+        if action in ['resize', 'resize/dryrun']:
+            if not data.get('profileSlug'):
+                raise ValidationException('The field profileSlug is required.')
+        
+        if action in ['snapshot', 'restore']:
+            if not data.get('snapshotId'):
+                raise ValidationException('The field snapshotId is required.')
+        
+        return self.make_request(endpoint='{}/{}/actions/{}'.format(self.endpoints.get('servers'), slug, action), requestType='POST')
+
     # Get server locations
     def get_locations(self):
         return self.make_request(self.endpoints.get('locations'))
