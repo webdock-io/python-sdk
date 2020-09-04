@@ -52,8 +52,13 @@ except Exception as e:
 
 ### Patch a server
 ```python
-newstatus = 'running'
-wd.patch_server(serverSlug, newstatus)
+data = {
+    'name': 'MyAwesomeServer',
+    'description': 'My awesome Webdock server',
+    'nextActionDate': 'A date time for next action',
+    'notes': 'Some notes on this server'
+}
+wd.patch_server(serverSlug, data)
 ```
 
 ### Get server locations
