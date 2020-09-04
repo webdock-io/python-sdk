@@ -138,6 +138,19 @@ wd.delete_serverscript(serverSlug, scriptId)
 res = wd.execute_serverscript(serverSlug, scriptId)
 ```
 
+### Metrics
+Get all metrics.
+
+```python
+res = wd.get_server_metrics(serverSlug)
+```
+
+Or get instant metrics.
+
+```python
+res = wd.get_instant_metrics(serverSlug)
+```
+
 ### Get server snapshots
 ```python
 res = wd.get_snapshots(serverSlug)
@@ -181,4 +194,9 @@ wd.delete_hook(hookId)
 ### Create a hook
 ```python
 res = wd.create_hook(hookType, hookValue)
+```
+
+### Get events
+```python
+res = wd.get_events()
 ```
