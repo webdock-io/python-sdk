@@ -227,10 +227,18 @@ class Webdock:
     def get_hook(self, hookId):
         return self.make_request('{}/{}'.format(self.endpoints.get('hooks'), hookId))
     
+    # Get server metrics
+    def get_server_metrics(self, serverSlug):
+        return self.make_request('{}/{}/metrics'.format(self.endpoints.get('servers'), serverSlug))
+    
+    # Get instant server metrics
+    def get_instant_metrics(self, serverSlug):
+        return self.make_request('{}/{}/metrics/now'.format(self.endpoints.get('servers'), serverSlug))
+
     # Delete a hook by ID
     def delete_hook(self, hookId):
         return self.make_request('{}/{}'.format(self.endpoints.get('hooks'), hookId), requestType='DELETE')
-    
+
     # Create a hook
     def create_hook(self, hookType, hookValue):
         data = {
