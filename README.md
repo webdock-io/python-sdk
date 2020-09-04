@@ -61,6 +61,11 @@ data = {
 wd.patch_server(serverSlug, data)
 ```
 
+### Fetch a file from server
+```python
+res = wd.fetch_file(serverSlug, filePath)
+```
+
 ### Get server locations
 ```python
 locations = wd.get_locations()
