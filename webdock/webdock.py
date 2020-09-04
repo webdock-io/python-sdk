@@ -17,7 +17,8 @@ class Webdock:
             'images': 'images',
             'pubkeys': 'account/publicKeys',
             'scripts': 'scripts',
-            'hooks': 'hooks'
+            'hooks': 'hooks',
+            'events': 'events'
         }
         self.params = {}
         self.expectsRaw = False
@@ -219,14 +220,6 @@ class Webdock:
     def restore_snapshot(self, serverSlug, snapshotId):
         return self.make_request('{}/{}/snapshots/{}/restore'.format(self.endpoints.get('servers'), serverSlug, snapshotId), requestType='DELETE')
     
-    # Get hooks list
-    def get_hooks(self):
-        return self.make_request(self.endpoints.get('hooks'))
-    
-    # Get a hook by ID
-    def get_hook(self, hookId):
-        return self.make_request('{}/{}'.format(self.endpoints.get('hooks'), hookId))
-    
     # Get server metrics
     def get_server_metrics(self, serverSlug):
         return self.make_request('{}/{}/metrics'.format(self.endpoints.get('servers'), serverSlug))
@@ -234,6 +227,14 @@ class Webdock:
     # Get instant server metrics
     def get_instant_metrics(self, serverSlug):
         return self.make_request('{}/{}/metrics/now'.format(self.endpoints.get('servers'), serverSlug))
+
+    # Get hooks list
+    def get_hooks(self):
+        return self.make_request(self.endpoints.get('hooks'))
+    
+    # Get a hook by ID
+    def get_hook(self, hookId):
+        return self.make_request('{}/{}'.format(self.endpoints.get('hooks'), hookId))
 
     # Delete a hook by ID
     def delete_hook(self, hookId):
@@ -245,4 +246,8 @@ class Webdock:
             'type': hookType,
             'value': hookValue
         }
-        return self.make_request(self.endpoints.get('hooks'), data=data)
+        return self.make_request(self.endpoints.get('hooks'), data=data, requestType='POST')
+    
+    # Get events list
+    def get_events(self):
+        return self.make_request(self.endpoints.get('events'))
