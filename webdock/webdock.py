@@ -23,7 +23,7 @@ class Webdock:
 
     # Send API call's response
     def send_response(self, res, json=True):
-        if res.status_code in [200, 201, 418]:
+        if res.status_code in [200, 201, 202, 418]:
             if json:
                 return {
                     'status': res.status_code,
