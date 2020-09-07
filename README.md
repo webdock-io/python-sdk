@@ -1,5 +1,5 @@
 # Python SDK for Webdock API
-This is the Python SDK to interact with Webdock API. Please visit [https://apidocs.beta.webdock.io](https://apidocs.beta.webdock.io) to read the API documentation.
+This is the Python SDK to interact with Webdock API. Please visit [https://api.webdock.io](https://api.webdock.io) to read the API documentation.
 
 ## Installation
 Install from PyPi:
@@ -207,6 +207,7 @@ res = wd.create_hook(hookType, hookValue)
 ```
 
 ### Get events
+Either `eventType` or `callbackId` is required.
 ```python
-res = wd.get_events()
+res = wd.get_events(callbackId=None, eventType=None)
 ```
