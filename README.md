@@ -1,5 +1,5 @@
 # Python SDK for Webdock API
-This is the Python SDK to interact with Webdock API. Please visit [https://apidocs.beta.webdock.io/api-docs/](https://apidocs.beta.webdock.io/api-docs/) to read the API documentation.
+This is the Python SDK to interact with Webdock API. Please visit [https://apidocs.beta.webdock.io](https://apidocs.beta.webdock.io) to read the API documentation.
 
 ## Installation
 Install from PyPi:
