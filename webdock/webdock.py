@@ -250,7 +250,7 @@ class Webdock:
     
     # Get events list
     def get_events(self, callbackId=None, eventType=None):
-        if not(callbackId or eventType):
+        if callbackId is None and eventType is None:
             raise ValidationException('Either callbackId or eventType is required')
         if callbackId:
             self.params['callbackId'] = callbackId
