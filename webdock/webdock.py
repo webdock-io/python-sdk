@@ -249,5 +249,11 @@ class Webdock:
         return self.make_request(self.endpoints.get('hooks'), data=data, requestType='POST')
     
     # Get events list
-    def get_events(self):
+    def get_events(self, callbackId=None, eventType=None):
+        if not(callbackId or eventType):
+            raise ValidationException('Either callbackId or eventType is required')
+        if callbackId:
+            self.params['callbackId'] = callbackId
+        if eventType:
+            self.params['eventType'] = eventType
         return self.make_request(self.endpoints.get('events'))
