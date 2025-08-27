@@ -1,6 +1,6 @@
 [project]
 name = "webdock"
-version = "3.0.0"
+version = "1.0.2"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
