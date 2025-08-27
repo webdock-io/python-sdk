@@ -28,10 +28,10 @@ def main():
     try:
         # Create a new server
         server = client.servers.create(
-            imageSlug="ubuntu-20-04-x64",
-            locationId="pl-waw",
+            imageSlug="foo",
+            locationId="foo",
             name="test-server",
-            profileSlug="s-1vcpu-1gb",
+            profileSlug="foo",
         )
         
         # Access server data from response body
@@ -86,11 +86,6 @@ def main():
             hookType="foo",
             hookValue="https://your-webhook-url.com"
         )
-        
-        # Access response data (same pattern as new SDK)
-        webhook_id = webhook.get("body").get("id")
-        callback_id = webhook.get("headers").get("x_callback_id")
-        
     except RequestException as e:
         print(f"Request failed: {e}")
 
