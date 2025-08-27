@@ -3,7 +3,7 @@ import unittest
 from dotenv import load_dotenv
 from requests import RequestException
 from typing import TYPE_CHECKING
-from webdock import Webdock
+from webdock.webdock import Webdock
 
 import time
 

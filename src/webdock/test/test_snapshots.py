@@ -3,7 +3,7 @@ import unittest
 import time
 from dotenv import load_dotenv
 from typing import TYPE_CHECKING
-from webdock import Webdock
+from webdock.webdock import Webdock
 
 load_dotenv()
 
