@@ -1,6 +1,7 @@
 import requests, json
 from .exceptions import ValidationException, WebdockException
 
+__all__ = ["Webdock"]
 class Webdock:
     def __init__(self, apiToken):
         self.baseurl = 'https://api.webdock.io/v1'

@@ -1,6 +1,6 @@
-*.pyc
-webdock.egg-info
-dist
-build
-*.swp
-.DS_Store
+__pycache__
+.pytest_cache
+.venv
+.env
+/dist
+/webdock_sdk.egg-info

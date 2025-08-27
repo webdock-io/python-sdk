@@ -1,6 +1,6 @@
 import unittest
 import os
-from webdock.webdock import Webdock
+from oldwebdock import webdock
 
 # This server should be created first
 server_slug = 'pythontest1'
@@ -8,7 +8,7 @@ server_slug = 'pythontest1'
 # This is random server slug that should not exist
 bad_serverslug = 'a-random-server-that-should-not-exist'
 
-wd = Webdock(os.environ.get('WEBDOCK_API_TOKEN'))
+wd = webdock.Webdock(os.environ.get('WEBDOCK_API_TOKEN'))
 
 class TestWebdock(unittest.TestCase):
     # Test ping
