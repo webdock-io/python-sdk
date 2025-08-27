@@ -1,7 +1,7 @@
 [project]
 name = "webdock"
-version = "1.0.2"
-description = "Add your description here"
+version = "1.0.3"
+description = "A type-safe Python wrapper for the Webdock.io API."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
