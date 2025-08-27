@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='webdock',
-	version='1.0.0',
+	version='1.0.1',
 	description='Python SDK for Webdock awesome API.',
 	author="Rehmat",
 	author_email="contact@rehmat.works",
