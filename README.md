@@ -95,16 +95,8 @@ if __name__ == "__main__":
 
 > **⚠️ Deprecation Notice**: legacy package is now deprecated. Please migrate to the new SDK for continued support and updates.
 
-## Features
-
-- **Type-safe**: Full type hints for better IDE support and error catching
-- **Easy to use**: Simple, intuitive API interface
-- **Error handling**: Built-in exception handling with detailed error messages
-- **Async support**: Non-blocking operations for better performance
-- **Comprehensive**: Full coverage of Webdock API endpoints
 
 ## Support
 
 - [API Documentation](https://api.webdock.io)
 - [GitHub Issues](https://github.com/webdock-io/python-sdk/issues)
-- [Webdock Support](https://webdock.io/support)
