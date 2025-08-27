@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Literal, TypedDict 
+from typing import List, Literal, Optional, TypedDict 
 
  
  
@@ -41,7 +41,7 @@ EventStatus = Literal["waiting", "working", "finished", "error"]
 class EventsType(TypedDict):
     id: int
     startTime: str
-    endTime: str | None
+    endTime: Optional[str | None]
     callbackId: str
     serverSlug: str
     eventType: EventType

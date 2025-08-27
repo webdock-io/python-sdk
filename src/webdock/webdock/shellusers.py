@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, TypedDict
+from typing import List, Optional, TypedDict
 
 
  
@@ -70,9 +70,9 @@ class ShellUsers:
         serverSlug: str,
         username: str,
         password: str,
-        group: str | None = None,
-        shell: str | None = None,
-        publicKeys: List[int] | None = None,
+        group: Optional[str] = None,
+        shell: Optional[str] = None,
+        publicKeys: Optional[List[int]] = [],
     ) -> CreateShellUserResponseType:
         return req(
             RequestOptions(
@@ -112,7 +112,7 @@ class ShellUsers:
             
         )
 
-    def edit(self, *, slug: str, id: int, keys: List[int]) -> CreateShellUserResponseType:
+    def edit(self, *, slug: str, id: int, keys: List[int] = []) -> CreateShellUserResponseType:
         return req(
             RequestOptions(
                 endpoint=f"servers/{slug}/shellUsers/{id}",
